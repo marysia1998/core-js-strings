@@ -431,8 +431,8 @@ function extractNameFromTemplate(value) {
  *   unbracketTag('<span>') => 'span'
  *   unbracketTag('<a>') => 'a'
  */
-function unbracketTag(/* str */) {
-  throw new Error('Not implemented');
+function unbracketTag(str) {
+  return str.substring(1, str.length - 1);
 }
 
 /**
@@ -470,8 +470,20 @@ function extractEmails(str) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
+function encodeToRot13(str) {
+  const input = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+  const output = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm';
+  const words = str.split(' ');
+  const newWords = [];
+  for (let i = 0; i < words.length; i += 1) {
+    let newWord = '';
+    for (let j = 0; j < words[i].length; j += 1) {
+      const index = input.indexOf(words[i][j]);
+      newWord += index >= 0 ? output[index] : words[i][j];
+    }
+    newWords.push(newWord);
+  }
+  return newWords.join(' ');
 }
 
 /**
